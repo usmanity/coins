@@ -99,7 +99,8 @@ if (process.env.NODE_ENV === 'production') {
     new CopyWebpackPlugin([
       { from: 'manifest.json', to: 'manifest.json' },
       { from: 'coin.png', to: 'coin.png'},
-      { from: 'coins.html', to: 'coins.html' }
+      { from: 'coins.html', to: 'coins.html' },
+      { from: 'icons/*.png', to: ''}
     ]),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,

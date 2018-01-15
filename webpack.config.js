@@ -100,7 +100,8 @@ if (process.env.NODE_ENV === 'production') {
       { from: 'manifest.json', to: 'manifest.json' },
       { from: 'coin.png', to: 'coin.png'},
       { from: 'coins.html', to: 'coins.html' },
-      { from: 'icons/*.png', to: ''}
+      { from: 'icons/*.png', to: ''},
+      { from: 'options.html', to: 'options.html' }
     ]),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,

@@ -91,7 +91,10 @@ li {
   align-items: center;
   .rank {
     padding-right: 10px;
+    margin-left: -2px;
+    text-align: center;
     font-size: 10px;
+    width: 20px;
   }
 }
 

@@ -1,7 +1,7 @@
 {
     "name": "Coins",
     "description" : "Track your favorite cryptocurrencies",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "manifest_version": 2,
     "browser_action": {
       "default_popup": "coins.html",
@@ -14,5 +14,5 @@
       "128": "icons/icon128.png",
       "256": "icons/icon256.png"
     },
-    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+    "options_page": "options.html"
   }

@@ -1,8 +1,8 @@
 # coins
 
-> coins
+> A chrome extension to help you track your favorite cryptos.
 
-## Build Setup
+## Building and developing
 
 ``` bash
 # install dependencies
@@ -15,4 +15,4 @@ npm run dev
 npm run build
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+There is a better build process in the works that will allow exporting the zipped file to Chrome.

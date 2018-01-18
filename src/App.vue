@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <div class="add-coins">
+      <input type="search" name="search" id="search" placeholder="Search">
+    </div>
     <ul>
       <li v-for="coin in coinData" :class="cursor(coin)">
         <div class="info">
@@ -115,4 +118,9 @@ li {
 .n-resize        { cursor: n-resize; }
 .s-resize        { cursor: s-resize; }
 .ew-resize       { cursor: ew-resize; }
+#search {
+  width: 100%;
+  font-size: 18px;
+  border: 1px solid #ccc;
+}
 </style>

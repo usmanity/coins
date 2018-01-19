@@ -50,10 +50,7 @@ export default {
       var cacheTimestamp = self.ls.get('cacheTimestamp');
       if (cachedResults &&  cacheTimestamp > now - 60) {
         self.coinData = cachedResults;
-        self.currentCoins = cachedResults;
-        console.log('now - 60', now - 60);
-        console.log('cache timestamp', cacheTimestamp);
-        console.log('-----------using cached data---------------------');
+        self.currentCoins = cachedResults.slice(0, 10);
         return;
       }
       axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=100').then(function(res){
@@ -62,7 +59,6 @@ export default {
         self.currentCoins = self.coinData.slice(0, 10);
         self.ls.set('coinData', res.data);
         self.ls.set('cacheTimestamp', now);
-        console.log('# setting new data #');
       });
     },
     cursor(coin) {
@@ -76,7 +72,6 @@ export default {
       }
     },
     search(value){
-      console.log(value);
       if (value === '') {
         this.currentCoins = this.coinData.slice(0, 10);
         return;

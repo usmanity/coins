@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div class="add-coins">
-      <input type="search" name="search" id="search" placeholder="Search">
+      <input type="search" v-model="query" name="search" id="search" placeholder="Search">
     </div>
     <ul>
-      <li v-for="coin in coinData" :class="cursor(coin)">
+      <li v-for="coin in currentCoins" :class="cursor(coin)">
         <div class="info">
           <span class="rank">{{ coin.rank }}</span> 
           <span class="name">{{ coin.name }}</span>
@@ -14,7 +14,7 @@
             ${{ coin.price_usd }}
           </span>
           <span class="change">
-            {{ coin.percent_change_24h }}
+            {{ coin.percent_change_24h }}%
           </span>
         </div>
       </li>
@@ -24,19 +24,29 @@
 
 <script>
 import axios from 'axios';
+import _ from 'underscore';
 
 export default {
   name: 'app',
   data () {
     return {
       coinData: {},
+      currentCoins: {},
+      query: ''
+    }
+  },
+  watch: {
+    query(value) {
+      this.search(value);
     }
   },
   methods: {
     getCoinData() {
       var self = this;
       axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=10').then(function(res){
+        console.log(res);
         self.coinData = res.data;
+        self.currentCoins = res.data;
       });
     },
     cursor(coin) {
@@ -48,7 +58,20 @@ export default {
       } else {
         return 'n-resize'
       }
-    }
+    },
+    search(value){
+      console.log(value);
+      if (value === '') {
+        this.currentCoins = this.coinData;
+        return;
+      }
+      this.currentCoins = _.filter(this.coinData, (coin) => {
+        if (coin.name.toLowerCase().indexOf(value) !== -1) {
+          return coin;
+        }
+      });
+
+    },
   },
   mounted() {
     this.getCoinData();

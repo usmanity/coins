@@ -29,10 +29,12 @@ import _ from 'underscore';
 export default {
   name: 'app',
   data () {
+
     return {
       coinData: {},
       currentCoins: {},
-      query: ''
+      query: '',
+      ls: this.$parent.$ls
     }
   },
   watch: {
@@ -42,11 +44,25 @@ export default {
   },
   methods: {
     getCoinData() {
+      var now = new Date().getTime() / 1000;
       var self = this;
-      axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=10').then(function(res){
-        console.log(res);
+      var cachedResults = self.ls.get('coinData');
+      var cacheTimestamp = self.ls.get('cacheTimestamp');
+      if (cachedResults &&  cacheTimestamp > now - 60) {
+        self.coinData = cachedResults;
+        self.currentCoins = cachedResults;
+        console.log('now - 60', now - 60);
+        console.log('cache timestamp', cacheTimestamp);
+        console.log('-----------using cached data---------------------');
+        return;
+      }
+      axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=100').then(function(res){
+        var now = new Date().getTime() / 1000;
         self.coinData = res.data;
-        self.currentCoins = res.data;
+        self.currentCoins = self.coinData.slice(0, 10);
+        self.ls.set('coinData', res.data);
+        self.ls.set('cacheTimestamp', now);
+        console.log('# setting new data #');
       });
     },
     cursor(coin) {
@@ -62,11 +78,11 @@ export default {
     search(value){
       console.log(value);
       if (value === '') {
-        this.currentCoins = this.coinData;
+        this.currentCoins = this.coinData.slice(0, 10);
         return;
       }
       this.currentCoins = _.filter(this.coinData, (coin) => {
-        if (coin.name.toLowerCase().indexOf(value) !== -1) {
+        if (coin.name.toLowerCase().indexOf(value) !== -1 || coin.symbol.toLowerCase().indexOf(value) !== -1) {
           return coin;
         }
       });
@@ -145,5 +161,16 @@ li {
   width: 100%;
   font-size: 18px;
   border: 1px solid #ccc;
+  margin: 4px 0;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  font-weight: bold;
+  border-radius: 1px;
+  &:focus {
+    outline: none;
+    border-color: rgba(100, 100, 100, 0.9);
+  }
 }
+
 </style>

@@ -19,6 +19,11 @@
         </div>
       </li>
     </ul>
+    <div class="footer">
+      <div class="change-range">
+        Change is over the past 24 hours
+      </div>
+    </div>
   </div>
 </template>
 
@@ -115,7 +120,7 @@ ul {
 }
 li {
   list-style: none;
-  padding: 4px;
+  padding: 3px 4px;
   border-radius: 1px;
   display: flex;
   border-bottom: 1px solid rgba(124, 124, 124, 0.2);
@@ -147,9 +152,21 @@ li {
   }
 }
 
-.n-resize        { cursor: n-resize; }
-.s-resize        { cursor: s-resize; }
-.ew-resize       { cursor: ew-resize; }
+.n-resize { 
+  cursor: n-resize;
+  .change {
+    color: green;
+  }
+}
+.s-resize { 
+  cursor: s-resize;
+  .change {
+    color: red;
+  }
+}
+.ew-resize { 
+  cursor: ew-resize;
+}
 #search {
   width: 100%;
   font-size: 18px;
@@ -165,5 +182,9 @@ li {
     border-color: rgba(100, 100, 100, 0.9);
   }
 }
-
+.change-range {
+  font-size: 8px;
+  text-align: center;
+  padding-top: 4px;
+}
 </style>

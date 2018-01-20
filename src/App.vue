@@ -93,7 +93,7 @@ export default {
 <style lang="scss">
 body {
   width: 300px;
-  height: 420px;
+  height: 470px;
   // border: 1px solid;
   font-size: 16px;
 }
@@ -118,9 +118,7 @@ li {
   padding: 4px;
   border-radius: 1px;
   display: flex;
-  &:hover {
-    background-color: rgba(120, 120, 120, 0.3);
-  }
+  border-bottom: 1px solid rgba(124, 124, 124, 0.2);
 }
 .info {
   width: 50%;

@@ -177,9 +177,11 @@ li {
   padding: 5px 10px;
   font-weight: bold;
   border-radius: 1px;
+  transition: border 200ms ease-out;
   &:focus {
     outline: none;
     border-color: rgba(100, 100, 100, 0.9);
+    transition: border 200ms ease-in;
   }
 }
 .change-range {

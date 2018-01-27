@@ -3,22 +3,8 @@
     <div class="add-coins">
       <input type="search" v-model="query" name="search" id="search" placeholder="Search">
     </div>
-    <ul>
-      <li v-for="coin in currentCoins" :class="cursor(coin)">
-        <div class="info">
-          <span class="rank">{{ coin.rank }}</span> 
-          <span class="name">{{ coin.name }}</span>
-        </div>
-        <div class="pricing">
-          <span class="price">
-            ${{ coin.price_usd }}
-          </span>
-          <span class="change">
-            {{ coin.percent_change_24h }}%
-          </span>
-        </div>
-      </li>
-    </ul>
+    <top-ten :current-coins="currentCoins"></top-ten>
+    
     <div class="footer">
       <div class="change-range">
         Change is over the past 24 hours
@@ -30,16 +16,18 @@
 <script>
 import axios from 'axios';
 import _ from 'underscore';
+import topTen from './TopTen';
 
 export default {
   name: 'app',
+  components: {
+    topTen,
+  },
   data () {
-
     return {
-      coinData: {},
-      currentCoins: {},
+      ls: this.$parent.$ls,
+      currentCoins: '',
       query: '',
-      ls: this.$parent.$ls
     }
   },
   watch: {
@@ -48,37 +36,6 @@ export default {
     }
   },
   methods: {
-    getCoinData() {
-      var now = new Date().getTime() / 1000;
-      var self = this;
-      var cachedResults = self.ls.get('coinData');
-      var cacheTimestamp = self.ls.get('cacheTimestamp');
-      if (cachedResults &&  cacheTimestamp > now - 60) {
-        self.coinData = cachedResults;
-        self.currentCoins = cachedResults.slice(0, 10);
-        return;
-      }
-      axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=100').then(function(res){
-        var now = new Date().getTime() / 1000;
-        self.coinData = res.data;
-        self.currentCoins = self.coinData.slice(0, 10);
-
-        // crude caching in localStorage.
-        self.ls.set('coinData', res.data);
-        self.ls.set('cacheTimestamp', now);
-      });
-    },
-    cursor(coin) {
-      if (!coin) {
-        return 'ew-resize'
-      }
-      if (coin.percent_change_24h < 0) {
-        return 's-resize'
-      } else {
-        return 'n-resize'
-      }
-      return 'ew-resize';
-    },
     search(value){
       if (value === '') {
         this.currentCoins = this.coinData.slice(0, 10);
@@ -90,11 +47,10 @@ export default {
           return coin;
         }
       });
-
     },
   },
   mounted() {
-    this.getCoinData();
+    
   }
 }
 </script>
@@ -117,17 +73,6 @@ body {
 }
 h1 {
   text-align: center;
-}
-ul {
-  padding: 0;
-  margin: 0;
-}
-li {
-  list-style: none;
-  padding: 3px 4px;
-  border-radius: 1px;
-  display: flex;
-  border-bottom: 1px solid rgba(124, 124, 124, 0.2);
 }
 .info {
   width: 50%;

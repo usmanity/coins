@@ -2,7 +2,15 @@
 
 > A chrome extension to help you track your favorite cryptos.
 
-## Building and developing
+## About
+
+This extension was initial put together in about 2 hours, getting started to being in the Chrome Web store.
+Since then, I've been working on making the code cleaner and the extension more feature rich. 
+I spend a couple of times during the week working on it.
+
+If you'd like to file an issue or feature request, please go to the Issues tab.
+
+## Developing
 
 ``` bash
 # install dependencies
@@ -15,4 +23,4 @@ npm run dev
 npm run build
 ```
 
-There is a better build process in the works that will allow exporting the zipped file to Chrome.
+Building for production will copy all the required files to the `/dist` directory. 

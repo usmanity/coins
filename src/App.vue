@@ -62,6 +62,8 @@ export default {
         var now = new Date().getTime() / 1000;
         self.coinData = res.data;
         self.currentCoins = self.coinData.slice(0, 10);
+
+        // crude caching in localStorage.
         self.ls.set('coinData', res.data);
         self.ls.set('cacheTimestamp', now);
       });
@@ -75,12 +77,14 @@ export default {
       } else {
         return 'n-resize'
       }
+      return 'ew-resize';
     },
     search(value){
       if (value === '') {
         this.currentCoins = this.coinData.slice(0, 10);
         return;
       }
+      // very simple search
       this.currentCoins = _.filter(this.coinData, (coin) => {
         if (coin.name.toLowerCase().indexOf(value) !== -1 || coin.symbol.toLowerCase().indexOf(value) !== -1) {
           return coin;

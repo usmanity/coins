@@ -3,7 +3,7 @@
     <div class="add-coins">
       <input type="search" v-model="query" name="search" id="search" placeholder="Search">
     </div>
-    <top-ten :current-coins="currentCoins"></top-ten>
+    <top-ten :query="query"></top-ten>
     
     <div class="footer">
       <div class="change-range">
@@ -31,26 +31,10 @@ export default {
     }
   },
   watch: {
-    query(value) {
-      this.search(value);
-    }
   },
   methods: {
-    search(value){
-      if (value === '') {
-        this.currentCoins = this.coinData.slice(0, 10);
-        return;
-      }
-      // very simple search
-      this.currentCoins = _.filter(this.coinData, (coin) => {
-        if (coin.name.toLowerCase().indexOf(value) !== -1 || coin.symbol.toLowerCase().indexOf(value) !== -1) {
-          return coin;
-        }
-      });
-    },
   },
   mounted() {
-    
   }
 }
 </script>

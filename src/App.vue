@@ -4,7 +4,7 @@
       <input type="search" v-model="query" name="search" id="search" placeholder="Search">
     </div>
     <top-ten :query="query"></top-ten>
-    
+
     <div class="footer">
       <div class="change-range">
         Change is over the past 24 hours
@@ -41,8 +41,6 @@ export default {
 
 <style lang="scss">
 body {
-  width: 300px;
-  height: 470px;
   // border: 1px solid;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
@@ -55,6 +53,9 @@ body {
   overflow-y: auto;
   width: 100%;
   height: 100%;
+  margin: auto;
+  width: 300px;
+  height: 470px;
 }
 h1 {
   text-align: center;
@@ -86,19 +87,19 @@ h1 {
   }
 }
 
-.n-resize { 
+.n-resize {
   cursor: n-resize;
   .change {
     color: green;
   }
 }
-.s-resize { 
+.s-resize {
   cursor: s-resize;
   .change {
     color: red;
   }
 }
-.ew-resize { 
+.ew-resize {
   cursor: ew-resize;
 }
 #search {

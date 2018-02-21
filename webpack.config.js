@@ -99,7 +99,7 @@ if (process.env.NODE_ENV === 'production') {
     new CopyWebpackPlugin([
       { from: 'manifest.json', to: 'manifest.json' },
       { from: 'assets/images/coin.png', to: 'coin.png'},
-      { from: 'assets/images/coins.html', to: 'coins.html' },
+      { from: 'coins.html', to: 'coins.html' },
       { from: 'assets/icons/*.png', to: ''},
       { from: 'options.html', to: 'options.html' }
     ]),
